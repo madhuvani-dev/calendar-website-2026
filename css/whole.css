@@ -192,7 +192,11 @@ footer {
 .window-controls button:hover {
   background: #ddd;
 }
-
+.holiday-name {
+  font-size: 9px;
+  margin-top: 3px;
+  color: red;
+}
 
 
 

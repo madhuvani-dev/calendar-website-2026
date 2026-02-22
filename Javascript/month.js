@@ -7,20 +7,38 @@ const year = 2026;
 // Get month from HTML (0–11)
 const monthIndex = parseInt(document.body.dataset.month);
 
-// Month-specific holidays
 const holidayData = {
-  0: [1,14,15,16, 26],      // January
-  1: [15],         // February
-  2: [8],          // March
-  3: [19,21,27],         // April
-  4: [3],          // May
-  5: [],           // June
-  6: [],           // July
-  7: [15,28],         // August
-  8: [4,14],           // September
-  9: [20],          // October
-  10: [8],          // November
-  11: [25]         // December
+  0: [
+    { day: 1, name: "New Year's Day" },
+    { day: 14, name: "Sankranti" },
+    { day: 15, name: "Kanuma" },
+    { day: 16, name: "Mukkanuma" },
+    { day: 26, name: "Republic Day" }
+  ],
+  1: [{ day: 15, name: "Mahasivaratri" }],
+  2: [{ day: 3, name: "Holi" },
+    {day: 19, name: "Ugadi"},
+    {day: 21, name: "Ramzan"},
+    {day: 26, name: "Rama Navami"}
+  ],
+  3: [
+    { day: 3, name: "Good Friday" },
+  ],
+  4: [{ day: 27, name: "Bakrid" }],
+  5: [{day: 26, name: "Muharram"}],
+  6: [],
+  7: [
+    { day: 15, name: "Independence Day" },
+    { day: 28, name: "Rakhi" }
+  ],
+  8: [
+    { day: 14, name: "Ganesha Chaturthi" }
+  ],
+  9: [{ day: 2, name: "Gandhi Jayanti" },
+    {day: 20, name: "Dussehra" }
+  ],
+  10: [{ day: 8, name: "Diwali" }],
+  11: [{ day: 25, name: "Christmas" }]
 };
 // Birthday data: monthIndex → [{ day, name }]
 const birthdayData = {
@@ -69,9 +87,19 @@ for (let day = 1; day <= daysInMonth; day++) {
   }
 
   // Holiday highlight
-  if (holidays.includes(day)) {
-    dateDiv.classList.add("holiday");
-  }
+  const holiday = holidays.find(h => h.day === day);
+
+if (holiday) {
+  dateDiv.classList.add("holiday");
+
+  dateDiv.setAttribute("title", holiday.name);
+
+  const holidayLabel = document.createElement("div");
+  holidayLabel.classList.add("holiday-name");
+  holidayLabel.textContent = holiday.name;
+
+  dateDiv.appendChild(holidayLabel);
+}
 
   // Today highlight
   if (isCurrentMonth && day === today.getDate()) {
